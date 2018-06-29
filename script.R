@@ -98,3 +98,15 @@ summary(modelo7)
 # 6. Con los datos proceso_pre.txt haga una predicción de la variable “y” (con el mejor modelo) y haga un
 # histograma, diagrama de cajas y resumen estadístico de los residuos de predicción (valor observado vs.
 # prediccion del modelo) para concluir con relación al poder predictivo del modelo.
+
+data_pred <- read.table("proceso_pre.txt", header=T)
+ybarra <- numeric(80)
+for (x in 1:length(data_pred$y)) {
+  # Modelo numero 2
+  ybarra[x] <- (modelo7$coefficients["X6"]*data_pred$x6[x]) + (modelo7$coefficients["X7"]*data_pred$x7[x])
+}
+
+yobs <- data_pred$y
+resY <- yobs - ybarra
+(sse <- sum((resY)^2))
+(varianza <- sse/(length(data_pred$y)-1))
